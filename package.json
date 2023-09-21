@@ -4,7 +4,8 @@
   "description": "bot para tweet ",
   "main": "y",
   "scripts": {
-    "start": "tsc && node index.js",
+    "build": "tsc",
+    "start": "npm run build && node ./dist/index.js",
     "test": "test"
   },
   "author": "daniel lopes",

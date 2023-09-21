@@ -1,7 +1,7 @@
 import axios from 'axios';
+import { CronTime } from 'cron';
 const CronJob = require("cron").CronJob;
 import { getLyrics } from 'genius-lyrics-api';
-
 import { TwitterApi } from "twitter-api-v2";
 
 
@@ -136,9 +136,7 @@ async function getRandomLyricChunk() {
 
         if (currentChunk.length > 0) {
             tweetChunks.push(currentChunk);
-        }
-
-      
+        }   
         const randomIndex = Math.floor(Math.random() * tweetChunks.length);
         const randomChunk = tweetChunks[randomIndex];
         console.log(randomChunk)
@@ -160,7 +158,15 @@ export async function postarTweet() {
     }
 }
 
-postarTweet();
+const agendarTweet = new CronJob('*/35 * * * *', () => {
+    console.log('Executando a tarefa...');
+    postarTweet();
+});
+
+agendarTweet.start();
+
+
+
 
 
 
