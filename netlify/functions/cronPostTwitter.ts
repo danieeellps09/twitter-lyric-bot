@@ -1,11 +1,11 @@
 // import { postarTweet } from "..";
 
-import { Handler,Context,HandlerEvent,schedule } from "@netlify/functions";
+import { Handler,Context,HandlerEvent } from "@netlify/functions";
 
-exports.handler = async (event:HandlerEvent) => {
+exports.handler = async() => {
     return {
       statusCode: 200,
-      body: JSON.stringify({ message: 'Tarefa agendada executada com sucesso.', }),
+      body: JSON.stringify({ message: 'Tarefa executada', }),
     };
 };
 
