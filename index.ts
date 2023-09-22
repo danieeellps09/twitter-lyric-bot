@@ -158,12 +158,12 @@ export async function postarTweet() {
     }
 }
 
-const agendarTweet = new CronJob('*/35 * * * *', () => {
-    console.log('Executando a tarefa...');
+// const agendarTweet = new CronJob('*/35 * * * *', () => {
+//     console.log('Executando a tarefa...');
     postarTweet();
-});
+// });
 
-agendarTweet.start();
+// agendarTweet.start();
 
 
 

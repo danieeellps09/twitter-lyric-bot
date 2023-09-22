@@ -162,8 +162,8 @@ function postarTweet() {
     });
 }
 exports.postarTweet = postarTweet;
-const job = new CronJob('*/1 * * * *', () => {
-    console.log('Executando a tarefa...');
-    postarTweet();
-});
-job.start();
+// const agendarTweet = new CronJob('*/35 * * * *', () => {
+//     console.log('Executando a tarefa...');
+postarTweet();
+// });
+// agendarTweet.start();
