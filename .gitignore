@@ -1,4 +1,6 @@
 # Local Netlify folder
 .netlify
 node_modules
+
+# Ignorar o arquivo .env
 .env
