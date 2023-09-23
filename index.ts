@@ -110,37 +110,36 @@ async function getRandomLyricChunk() {
     try {
         let lyrics = await getLyricOfTrack();
         
-        const maxCharsPerTweet = 100;
-        const tweetChunks = [];
+        const maxCharsPerTweet = 280;
+        const validChunks = [];
         let currentChunk = '';
-        let lastWordBreakIndex = -1
+        const words = lyrics.split(/\s+/);
 
-        for (let i = 0; i < lyrics.length; i++) {
-            const char = lyrics[i];
-            if (currentChunk.length + 1 <= maxCharsPerTweet) { 
-                currentChunk += char;
-                if (/\s/.test(char)) {
-                    lastWordBreakIndex = i;
-                }
+        for (const word of words) {
+            if (currentChunk.length + word.length + 1 <= maxCharsPerTweet) { 
+                currentChunk += (currentChunk.length > 0 ? ' ' : '') + word;
             } else {
-                if (lastWordBreakIndex !== -1) {
-                    tweetChunks.push(lyrics.substring(0, lastWordBreakIndex + 1));
-                    lyrics = lyrics.substring(lastWordBreakIndex + 1);
-                    lastWordBreakIndex = -1;
-                } else {
-                    tweetChunks.push(currentChunk);
-                    currentChunk = char;
+                if (currentChunk.length <= maxCharsPerTweet) {
+                    validChunks.push(currentChunk);
                 }
+                currentChunk = word;
             }
         }
 
-        if (currentChunk.length > 0) {
-            tweetChunks.push(currentChunk);
-        }   
-        const randomIndex = Math.floor(Math.random() * tweetChunks.length);
-        const randomChunk = tweetChunks[randomIndex];
-        console.log(randomChunk)
-        
+        if (currentChunk.length <= maxCharsPerTweet) {
+            validChunks.push(currentChunk);
+        }
+
+        const filteredChunks = validChunks.filter(chunk => chunk.length <= maxCharsPerTweet);
+
+        if (filteredChunks.length === 0) {
+            throw new Error("Nenhuma parte da letra se encaixa dentro do limite de caracteres.");
+        }
+
+        const randomIndex = Math.floor(Math.random() * filteredChunks.length);
+        const randomChunk = filteredChunks[randomIndex];
+        console.log(randomChunk);
+
         return randomChunk;
     } catch (error) {
         throw error;
@@ -158,12 +157,6 @@ export async function postarTweet() {
     }
 }
 
-// const agendarTweet = new CronJob('*/35 * * * *', () => {
-//     console.log('Executando a tarefa...');
-    postarTweet();
-// });
-
-// agendarTweet.start();
 
 
 
