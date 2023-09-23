@@ -115,6 +115,7 @@ function getRandomLyricChunk() {
             const validChunks = [];
             let currentChunk = '';
             const words = lyrics.split(/\s+/);
+            let verseCount = 0;
             for (const word of words) {
                 if (currentChunk.length + word.length + 1 <= maxCharsPerTweet) {
                     currentChunk += (currentChunk.length > 0 ? ' ' : '') + word;
@@ -125,8 +126,18 @@ function getRandomLyricChunk() {
                     }
                     currentChunk = word;
                 }
+                // Conta os versos
+                if (/\[Verse \d+\]/.test(word)) {
+                    verseCount++;
+                    if (verseCount >= 3) {
+                        if (currentChunk.length <= maxCharsPerTweet) {
+                            validChunks.push(currentChunk);
+                        }
+                        break;
+                    }
+                }
             }
-            if (currentChunk.length <= maxCharsPerTweet) {
+            if (currentChunk.length <= maxCharsPerTweet && verseCount >= 2) {
                 validChunks.push(currentChunk);
             }
             const filteredChunks = validChunks.filter(chunk => chunk.length <= maxCharsPerTweet);
@@ -158,5 +169,3 @@ function postarTweet() {
 }
 exports.postarTweet = postarTweet;
 getRandomLyricChunk();
-// });
-// agendarTweet.start();

@@ -114,6 +114,7 @@ async function getRandomLyricChunk() {
         const validChunks = [];
         let currentChunk = '';
         const words = lyrics.split(/\s+/);
+        let verseCount = 0;
 
         for (const word of words) {
             if (currentChunk.length + word.length + 1 <= maxCharsPerTweet) { 
@@ -124,9 +125,20 @@ async function getRandomLyricChunk() {
                 }
                 currentChunk = word;
             }
+
+            // Conta os versos
+            if (/\[Verse \d+\]/.test(word)) {
+                verseCount++;
+                if (verseCount >= 3) {
+                    if (currentChunk.length <= maxCharsPerTweet) {
+                        validChunks.push(currentChunk);
+                    }
+                    break;
+                }
+            }
         }
 
-        if (currentChunk.length <= maxCharsPerTweet) {
+        if (currentChunk.length <= maxCharsPerTweet && verseCount >= 2) {
             validChunks.push(currentChunk);
         }
 
