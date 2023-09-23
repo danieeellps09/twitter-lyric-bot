@@ -2,3 +2,5 @@
 command = 'npm run build'
 functions = 'functions'
 publish = 'build'
+[functions."function-name"]
+  schedule = "@hourly"

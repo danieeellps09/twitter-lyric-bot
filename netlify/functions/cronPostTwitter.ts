@@ -1,8 +1,8 @@
 import { postarTweet } from "../..";
 import { Handler,Context,HandlerEvent } from "@netlify/functions";
-// import { schedule } from "@netlify/functions";
-// config deploy
-exports.handler = async() => {
+const {schedule} = require("@netlify/functions")
+
+const handler: Handler = async() => {
   try {
     await postarTweet();
 
@@ -19,5 +19,8 @@ exports.handler = async() => {
   }
 };
 
+const agendarTweet = schedule("@hourly", handler)
+
+export { agendarTweet };
 
 
