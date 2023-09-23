@@ -1,5 +1,6 @@
 import { postarTweet } from "../..";
 import { Handler,Context,HandlerEvent } from "@netlify/functions";
+// import { schedule } from "@netlify/functions";
 
 exports.handler = async() => {
   try {
