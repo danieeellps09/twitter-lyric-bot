@@ -3,21 +3,22 @@ import { CronTime } from 'cron';
 const CronJob = require("cron").CronJob;
 import { getLyrics } from 'genius-lyrics-api';
 import { TwitterApi } from "twitter-api-v2";
+import { configTwitter, configSpotify, geniusKey } from './config/config';
 
 
 const T = new TwitterApi({
-    appKey: 'FwnW4b2vTi8ZaM4w2JhqfaJJX',
-    appSecret: 'p5N172jZDOXamtfc8xPb97tCYpvttcRoOnnSfWl3kN5YCcFPo0',
-    accessToken: '1462192256333619201-0ujTbp9aaVt5f7u0wsEp7hzUx1AOhp',
-    accessSecret: 'HHKNx8sXFi5diyHRE2cPsChtWFR1k5C83upzDiK2umLJn',
+    appKey: configTwitter.apiKey,
+    appSecret: configTwitter.apiSecret,
+    accessToken: configTwitter.accessToken,
+    accessSecret: configTwitter.accessSecret,
 });
-const dev_client = new TwitterApi('AAAAAAAAAAAAAAAAAAAAAMoeqAEAAAAARENSvBD6oJ7Ml0%2BSJMYrMNeVNeA%3DPMIuNSIEZiAVuG8sqMU3KbfjXXrVm4zEwj1meZozHp6E2fCgOj');
+const dev_client = new TwitterApi(configTwitter.bearerToken);
 // );
 
 
-const clientId = 'aa471e0e3dff4b39850d2fa210aa4daf';
-const clientSecret = 'c23a041c08b44c1a8cfa4f07460e8260';
-const authUrl = 'https://accounts.spotify.com/api/token';
+const clientId = configSpotify.clientID;
+const clientSecret = configSpotify.clientSecret;
+const authUrl = configSpotify.authURL;
 const data = new URLSearchParams();
 data.append('grant_type', 'client_credentials');
 
@@ -88,7 +89,7 @@ async function getLyricOfTrack(){
          const randomIndex = Math.floor(Math.random() * listOfTracks.length);
          let randomTrack = listOfTracks[randomIndex];
          const options = {
-             apiKey: 'tGvqViygd3N99gAuFa-B3iNlf0pkqnhTWK7QyGZdKAdP_-xCHVZbC2rkQJPoMQo1',
+             apiKey: geniusKey.apiKey,
              title: `${randomTrack}`,
              artist: `${artistName}`,
              optimizeQuery: true
@@ -170,8 +171,7 @@ export async function postarTweet() {
 }
 
 
-
-
+getRandomLyricChunk()
 
 
 
