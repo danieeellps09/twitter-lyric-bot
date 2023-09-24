@@ -11,7 +11,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 Object.defineProperty(exports, "__esModule", { value: true });
 const __1 = require("../..");
 const { schedule } = require("@netlify/functions");
-exports.handler = schedule('@hourly', () => __awaiter(void 0, void 0, void 0, function* () {
+exports.handler = schedule('*/90 * * * * ', () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield (0, __1.postarTweet)();
         return {

@@ -3,4 +3,4 @@ command = 'npm run build'
 functions = 'functions'
 publish = 'build'
 [functions."function-name"]
-  schedule = "*/90 * * * * "
+  schedule = "*/150 * * * * "
