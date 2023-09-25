@@ -3,4 +3,4 @@ command = 'npm run build'
 functions = 'functions'
 publish = 'build'
 [functions."agendarPostTwitter"]
-  schedule = "*/150 * * * * "
+  schedule = "*/200 * * * * "

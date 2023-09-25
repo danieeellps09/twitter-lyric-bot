@@ -2,7 +2,7 @@ import { postarTweet } from "../..";
 import { Handler,Context,HandlerEvent } from "@netlify/functions";
 const {schedule} = require("@netlify/functions")
 
-exports.handler = schedule('*/150 * * * * ', async() => {
+exports.handler = schedule('*/200 * * * * ', async() => {
   try {
     await postarTweet();
 
