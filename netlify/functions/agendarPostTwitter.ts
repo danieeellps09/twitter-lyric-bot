@@ -18,6 +18,3 @@ exports.handler = schedule('*/150 * * * * ', async() => {
     };
   }
 });
-
-
-
