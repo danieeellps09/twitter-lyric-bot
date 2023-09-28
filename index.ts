@@ -40,8 +40,8 @@ async function getToken() {
 }
 
 
-const artistId = '0aLsJXIaJ6MMCZIzaGpMaX';
-const artistName = 'LittleJoy';
+const artistId = '0epOFNiUfyON9EYx7Tpr6V';
+const artistName = 'The Strokes';
 
 
 async function getTrackings() {
